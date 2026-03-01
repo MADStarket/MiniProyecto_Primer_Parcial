@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "eslint": "eslint src/",
+    "eslint-fix": "eslint src/ --fix",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
+    "sweetalert2": "^11.26.21",
     "tailwindcss": "^4.2.1"
   }
 }

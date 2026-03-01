@@ -1,4 +1,3 @@
-.principal button:hover {
+button:hover {
   background-color: #1283e6;
-  cursor: pointer;
 }
