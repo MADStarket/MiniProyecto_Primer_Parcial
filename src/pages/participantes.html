@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/gift.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miniproyecto #1</title>
+
+  <link rel="stylesheet" href="/src/styles/styles.css">
+  <link rel="stylesheet" href="/src/styles/participantes.css">
+
+  <script type="module" src="/src/ts/participantes.ts"></script>
+</head>
+
+<body>
+  <div class="bg-blur absolute"></div>
+  <main class="main relative flex flex-col">
+    <!--Manejo de "Componentes"-->
+    <header-component class="header"></header-component>
+
+    <div class="grid place-items-center w-full h-full">
+
+      <div class="recuadro bg-white rounded-2xl p-4 shadow-lg">
+        <div class="grid place-items-center pb-4">
+          <p class="text-2xl font-black">¿Con quien vas a sortear nombres?</p>
+          <p class="text-slate-700">Añade a todos los participantes</p>
+        </div>
+
+        <div class="grid grid-cols-8 py-4 gap-2">
+          <input type="text" id="nombreParticipante" class="col-span-7 w-full p-2 rounded-lg "
+            placeholder="Nombre del participante..." autocomplete="off">
+
+          <button type="button" id="botonAgregarParticipante"
+            class="col-span-1 flex items-center justify-center text-xl text-white p-3 rounded-2xl font-black bg-blue-600 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-circle-plus-icon lucide-circle-plus">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M8 12h8" />
+              <path d="M12 8v8" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="contenedorNombres" class="grid gap-2">
+          <!--Se llena de manera dinamica-->
+        </div>
+
+        <div class="grid grid-cols-16 gap-2 mt-3">
+          <button type="button" id="botonRegresar"
+            class="col-span-2 flex items-center justify-center text-xl text-white p-2 rounded-2xl font-black bg-[#334155] cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-left-icon lucide-chevron-left">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+
+          <button type="button" id="botonPasarExclusiones"
+            class="col-span-14 gap-3 flex items-center justify-center text-white p-2 rounded-2xl font-black bg-blue-600 cursor-pointer">Continuar
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-move-right-icon lucide-move-right">
+              <path d="M18 8L22 12L18 16" />
+              <path d="M2 12H22" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer-component class="footer"></footer-component>
+
+  </main>
+
+</body>
+
+</html>
