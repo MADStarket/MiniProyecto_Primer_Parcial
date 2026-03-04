@@ -7,16 +7,22 @@ import Swal from 'sweetalert2';
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 
 // Funciones
-function cargarOrganizador(input: HTMLInputElement): void {
+function cargarOrganizador(input: HTMLInputElement, checkbox: HTMLInputElement): void {
   // Obtenemos el sorteo
   let sorteo = obtenerSorteo();
 
   // Si no null
   if (sorteo !== null) {
     // Obtenemos la informacion sobre el organizador (si esta ya existe)
-    const nombreOrganizador = sorteo?.organizador;
+    const nombreOrganizador: string = sorteo.organizador;
     // Ponemos en el input esta informacion
     input.value = nombreOrganizador
+
+    // Obtenemos si el organizador participa
+    const participa: boolean = sorteo.organizadorParticipa;
+    // Lo asignamos
+    checkbox.checked = participa;
+
   }
 }
 
@@ -33,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Ejecutamos nuestra funcion
-  cargarOrganizador(input);
+  cargarOrganizador(input, checkbox);
 
   // Definimos la funcion que se ejecutara al momento de hacer click
   const manejarClick = () => {
@@ -72,7 +78,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Definimos la funcion para cuando se le de enter al input
+  const manejarEnter = (event: KeyboardEvent) => {
+    // Si la tecla la que se presiono fue el enter
+    if (event.key === 'Enter') {
+      // Le quitamos el comportamiento default
+      event.preventDefault();
+      // Es como si le hicieramos click al boton
+      boton.click();
+    }
+  };
+
   // Creamos el listener para el boton
   boton.addEventListener('click', manejarClick);
+  // Creamos el listener para el input
+  input.addEventListener('keydown', manejarEnter);
 
 });

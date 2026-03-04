@@ -212,9 +212,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   };
 
+  // Definimos la funcion para cuando se le de enter al input
+  const manejarEnter = (event: KeyboardEvent) => {
+    // Si la tecla la que se presiono fue el enter
+    if (event.key === 'Enter') {
+      // Le quitamos el comportamiento default
+      event.preventDefault();
+      // Es como si le hicieramos click al boton
+      botonAgregarParticipante.click();
+    }
+  };
+
   // Creamos los listener para cada elemento
   botonRegresar.addEventListener('click', manejarBotonRegresar);
   botonAgregarParticipante.addEventListener('click', manejarAgregarParticipante);
   botonPasarExclusiones.addEventListener('click', manejarPasarExclusiones);
+  input.addEventListener('keydown', manejarEnter);
 
 });
