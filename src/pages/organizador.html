@@ -22,7 +22,7 @@
     <!--div principal ahora si con grid-->
     <div class="grid place-items-center w-full h-full">
 
-      <div class="recuadro bg-white rounded-2xl p-4 shadow-lg">
+      <div class="recuadro bg-white rounded-2xl p-4 shadow-lg w-[80%] md:w-[60%] lg:w-[50%] xl:w-[30%]">
 
         <div class="flex flex-col justify-center items-center pb-3 text-center">
           <img src="/gift-box.png" alt="Regalo">
@@ -37,14 +37,14 @@
 
           <div class="flex items-center gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
             <input type="checkbox" id="incluirOrganizador" checked class="w-5 h-5 text-blue-600 rounded">
-            <label for="incluirOrganizador" class="text-sm cursor-pointer select-none">Incluyeme (el organizador) en el
+            <label for="incluirOrganizador" class="text-xs cursor-pointer select-none md:text-sm">Incluyeme (el organizador) en el
               sorteo</label>
           </div>
         </form>
 
         <div class="grid place-items-center mt-3">
           <button type="button" id="botonPasarOrganizador"
-            class="flex items-center text-xl text-white p-2 rounded-2xl font-black gap-2 bg-blue-600 cursor-pointer">Continuar
+            class="flex items-center text-md text-white p-2 rounded-2xl font-black gap-2 bg-blue-600 cursor-pointer md:xl">Continuar
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="lucide lucide-move-right-icon lucide-move-right">
