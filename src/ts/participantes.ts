@@ -182,8 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Si hay los participantes adecuados
       if (sorteo.participantes.length >= minimoInvitados) {
-        // Agregamos al organizador como participante
-        sorteo.participantes.push(new Participante(sorteo.organizador));
+        // Agregamos al organizador como participante, si este participa
+        if (sorteo.organizadorParticipa) {
+          sorteo.participantes.push(new Participante(sorteo.organizador));
+        }
 
         // Guardamos el sorteo
         guardarSorteo(sorteo);

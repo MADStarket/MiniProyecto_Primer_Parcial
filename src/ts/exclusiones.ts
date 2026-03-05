@@ -1,9 +1,9 @@
 // Importamos los componentes
 import '../components/header';
 import '../components/footer';
-
+// Importamos la clase
 import { Participante } from '../model/Participante';
-
+// Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 
 // Declaracion de variables globales
@@ -17,11 +17,6 @@ function obtenerNombresUnicos(): string[] {
 
   // Usamos la estructura SET para evitar duplicados
   const nombres = new Set<string>();
-
-  // Agregamos primero al organizador en caso de que participe
-  if (sorteo.organizadorParticipa) {
-    nombres.add(sorteo.organizador); // Guardamos el nombre sin espacios basura
-  }
 
   // Agregamos a todos los participantes
   sorteo.participantes.forEach((p: Participante) => {
@@ -195,8 +190,16 @@ function configuracionDropZone(): void {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Obtenemos los elemenetos
   const select = document.getElementById('SelectorParticipantes') as HTMLSelectElement;
-  if (!select) return;
+  const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
+  const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
+
+  // Verificamos
+  if (!select || !botonRegresar || !botonPasarExclusiones) {
+    console.log('Elementos no encontrados');
+    return;
+  }
 
   // Cargamos el selector
   cargarSelector();
@@ -210,8 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarLista(); // Dibujamos las listas
   });
 
-  const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
-  const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
 
   const manejarRegresar = () => {
     window.location.href = window.location.origin + '/src/pages/participantes.html';
@@ -221,6 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = window.location.origin + '/src/pages/#';
   };
 
-  if (botonRegresar) botonRegresar.addEventListener('click', manejarRegresar);
-  if (botonPasarExclusiones) botonPasarExclusiones.addEventListener('click', manejarPasarExclusiones);
+  botonRegresar.addEventListener('click', manejarRegresar);
+  botonPasarExclusiones.addEventListener('click', manejarPasarExclusiones);
 });
