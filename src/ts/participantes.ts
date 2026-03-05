@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Debe de haber al menos 1 participante
         if (sorteo.participantes.length >= 1) {
           // Redireccionamos a la siguiente pagina
-          window.location.href = window.location.origin + '/src/pages/participantes.html';
+          window.location.href = window.location.origin + '/src/pages/exclusiones.html';
         }
         else {
           // Mandamos mensaje de error
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Debe de haber al menos 2 participantes
         if (sorteo.participantes.length >= 2) {
           // Redireccionamos a la siguiente pagina
-          window.location.href = window.location.origin + '/src/pages/participantes.html';
+          window.location.href = window.location.origin + '/src/pages/exclusiones.html';
         }
         else {
           // Mandamos mensaje de error
