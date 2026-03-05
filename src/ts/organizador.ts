@@ -9,14 +9,14 @@ import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 // Funciones
 function cargarOrganizador(input: HTMLInputElement, checkbox: HTMLInputElement): void {
   // Obtenemos el sorteo
-  let sorteo = obtenerSorteo();
+  const sorteo = obtenerSorteo();
 
   // Si no null
   if (sorteo !== null) {
     // Obtenemos la informacion sobre el organizador (si esta ya existe)
     const nombreOrganizador: string = sorteo.organizador;
     // Ponemos en el input esta informacion
-    input.value = nombreOrganizador
+    input.value = nombreOrganizador;
 
     // Obtenemos si el organizador participa
     const participa: boolean = sorteo.organizadorParticipa;
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     else {
       // Obtenemos el sorteo
-      let sorteo = obtenerSorteo();
+      const sorteo = obtenerSorteo();
 
       // Si no es null
       if (sorteo !== null) {

@@ -34,7 +34,7 @@ function agregarParticipante(participante: Participante, contenedorNombres: HTML
   botonEliminar?.addEventListener('click', () => {
     divParticipante.remove();
     // Obtenemos el arreglo de sorteo
-    let sorteo = obtenerSorteo();
+    const sorteo = obtenerSorteo();
     // Removemos el participante del sorteo (usando filter)
     if (sorteo) {
       sorteo.participantes = sorteo.participantes.filter((p) => p.nombre !== participante.nombre);
@@ -107,7 +107,7 @@ function cargarParticipantes(contenedorNombres: HTMLDivElement): void {
           botonEliminar.addEventListener('click', () => {
             divParticipante.remove();
             // Obtenemos el arreglo de sorteo
-            let sorteo = obtenerSorteo();
+            const sorteo = obtenerSorteo();
             // Removemos el participante del sorteo (usando filter)
             if (sorteo) {
               sorteo.participantes = sorteo.participantes.filter((p) => p.nombre !== participante.nombre);
@@ -177,36 +177,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sorteo !== null) {
 
-      // En caso de que el organizador participe
-      if (sorteo.organizadorParticipa) {
-        // Debe de haber al menos 1 participante
-        if (sorteo.participantes.length >= 1) {
-          // Redireccionamos a la siguiente pagina
-          window.location.href = window.location.origin + '/src/pages/exclusiones.html';
-        }
-        else {
-          // Mandamos mensaje de error
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Debes de haber al menos 2 participantes",
-          });
-        }
+      // Si el organizador participa necesitamos al menos 1 invitado, de lo contrario 2
+      const minimoInvitados = sorteo.organizadorParticipa ? 1 : 2;
+
+      // Si hay los participantes adecuados
+      if (sorteo.participantes.length >= minimoInvitados) {
+        // Agregamos al organizador como participante
+        sorteo.participantes.push(new Participante(sorteo.organizador));
+
+        // Guardamos el sorteo
+        guardarSorteo(sorteo);
+
+        // Redireccionamos a la siguiente pagina
+        window.location.href = window.location.origin + '/src/pages/exclusiones.html';
       }
       else {
-        // Debe de haber al menos 2 participantes
-        if (sorteo.participantes.length >= 2) {
-          // Redireccionamos a la siguiente pagina
-          window.location.href = window.location.origin + '/src/pages/exclusiones.html';
-        }
-        else {
-          // Mandamos mensaje de error
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Debes de haber al menos 2 participantes",
-          });
-        }
+        // Mandamos mensaje de error
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Debes de haber al menos 2 participantes",
+        });
       }
     }
 

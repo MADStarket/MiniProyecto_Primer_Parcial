@@ -1,4 +1,4 @@
-//Importamos los componentes
+// Importamos los componentes
 import '../components/header';
 import '../components/footer';
 
@@ -6,61 +6,57 @@ import { Participante } from '../model/Participante';
 
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 
-//Declaracion de variables globales
-let participanteSeleccionado = ''; //Guardaremos al participante que estamos editando sus exclusiones
-let arrastrandoNombre = ''; //Variable temporal para usar el draganddrop
+// Declaracion de variables globales
+let participanteSeleccionado = ''; // Guardaremos al participante que estamos editando sus exclusiones
+let arrastrandoNombre = ''; // Variable temporal para usar el draganddrop
 
 function obtenerNombresUnicos(): string[] {
-  //Obtenemos la información almacenada en el localstorage
+  // Obtenemos la información almacenada en el localstorage
   const sorteo = obtenerSorteo();
   if (!sorteo) return [];
 
-  //Usamos la estructura SET para evitar duplicados
+  // Usamos la estructura SET para evitar duplicados
   const nombres = new Set<string>();
 
-  //Agregamos primero al organizador en caso de que participe
-  if (sorteo.organizadorParticipa && sorteo.organizador.trim() !== '') {
-    nombres.add(sorteo.organizador.trim()); //Guardamos el nombre sin espacios basura
+  // Agregamos primero al organizador en caso de que participe
+  if (sorteo.organizadorParticipa) {
+    nombres.add(sorteo.organizador); // Guardamos el nombre sin espacios basura
   }
 
-  //Agregamos a todos los participantes
+  // Agregamos a todos los participantes
   sorteo.participantes.forEach((p: Participante) => {
-    const nombre = p.nombre.trim();
+    const nombre = p.nombre;
     if (nombre !== '') nombres.add(nombre);
   });
 
   return Array.from(nombres);
 }
 
-//Metemos al organizador en caso de que si este participando al array
-function obtenerParticipantes(nombre: string): Participante | null {
+function obtenerParticipante(): Participante | null {
   const sorteo = obtenerSorteo();
 
   if (!sorteo) return null;
 
-  let participante = sorteo.participantes.find((p) => p.nombre === nombre);
+  const participante = sorteo.participantes.find((p) => p.nombre === participanteSeleccionado);
 
-  //
+  // En caso de que el participante no exista (lo que esta en el select)
   if (!participante) {
-    participante = new Participante();
-    participante.nombre = nombre;
-    participante.participantesExcluidos = [];
-    sorteo.participantes.push(participante); //Agregamos al array
-    guardarSorteo(sorteo); // Guardamos en localstorage
+    // No regresamos nada
+    return null;
   }
 
+  // Regresamos al participante seleccionado
   return participante;
 }
 
 // Llenamos el selector con todos los participantes
-
 function cargarSelector(): void {
   const select = document.getElementById('SelectorParticipantes') as HTMLSelectElement;
 
   if (!select) return;
 
   // Obtenemos la lista única de nombres (sin duplicados)
-  const nombres = obtenerNombresUnicos();
+  const nombres: string[] = obtenerNombresUnicos();
 
   //Creamos las opciones para cada participante
   nombres.forEach((nombre) => {
@@ -71,11 +67,13 @@ function cargarSelector(): void {
   });
 }
 
-// Carga lista de participantes a los contenedores 
+// Carga lista de participantes a los contenedores
 function cargarLista(): void {
   const disponibles = document.getElementById('disponibles') as HTMLDivElement;
   const excluidos = document.getElementById('excluidos') as HTMLDivElement;
+
   if (!disponibles || !excluidos) return;
+
   // Limpiamos listas
   disponibles.innerHTML = '';
   excluidos.innerHTML = '';
@@ -83,20 +81,26 @@ function cargarLista(): void {
   // Si no hay nadie seleccionado, no se carga nada
   if (!participanteSeleccionado) return;
 
-  const participante = obtenerParticipantes(participanteSeleccionado);
+  const participante = obtenerParticipante();
   if (!participante) return;
 
   // Obtenemos todos los participantes a excepcion del que estamos configurando
-  const todos = obtenerNombresUnicos().filter((n) => n !== participanteSeleccionado);
+  const todos = obtenerNombresUnicos();
 
   // Creamos una estructura Set con los nombres excluidos
   const excluidosSet = new Set(participante.participantesExcluidos.map((p) => p.nombre));
 
   // Por cada participante creamos un tarjeta drag
   todos.forEach((nombre) => {
+
+    // Omitimos al mismo participante seleccionado
+    if (nombre === participanteSeleccionado) {
+      return;
+    }
+
     const card = document.createElement('div');
     card.className = 'drag-item';
-    card.draggable = true; // Indicamos que es un drag acti(vando la propiedad
+    card.draggable = true; // Indicamos que es un drag activando la propiedad
     card.textContent = nombre;
     card.dataset.nombre = nombre; // Guardamos el nombre en un atributo data-*
 
@@ -109,7 +113,7 @@ function cargarLista(): void {
     // Evento del drop
     card.addEventListener('dragend', () => {
       card.classList.remove('dragging'); // Efecto visual retirado
-    })
+    });
 
     // Determinamos en que lista se carga la tarjeta
     if (excluidosSet.has(nombre)) {
@@ -128,10 +132,7 @@ function guardarExclusionesDesdeUI(): void {
   const sorteo = obtenerSorteo();
   if (!sorteo) return;
 
-  const participante = obtenerParticipantes(participanteSeleccionado);
-  if (!participante) return;
-
-  // Guardamos los participantes excluidos en el array 
+  // Guardamos los participantes excluidos en el array
   const nombresExcluidos: string[] = [];
 
   // Recorremos todas las tarjetas de los participantes excluidos
@@ -140,11 +141,20 @@ function guardarExclusionesDesdeUI(): void {
     if (nombre) nombresExcluidos.push(nombre);
   });
 
-  // 
-  participante.participantesExcluidos = nombresExcluidos.map((nombre) => {
-    const p = new Participante();
-    p.nombre = nombre;
-    return p;
+  // Sobreescribimos al participante dentro del objeto sorteo
+  sorteo.participantes.forEach((p) => {
+    // Si el nombre coincide
+    if (p.nombre === participanteSeleccionado) {
+      // ACtualizamos sus exclusiones
+      p.participantesExcluidos = nombresExcluidos.map((nombre) => {
+        // Creamos al nuevo participante
+        const nuevoParticipante = new Participante();
+        // Le ponemos el nombre
+        nuevoParticipante.nombre = nombre;
+        // Esto hace que se guarde en participantesExcluidos
+        return nuevoParticipante;
+      });
+    }
   });
 
   // Guardamos el sorteo completo en localstorage
@@ -152,7 +162,6 @@ function guardarExclusionesDesdeUI(): void {
 }
 
 // Definimos las zonas de disponible y excluidos
-
 function configuracionDropZone(): void {
   const disponibles = document.getElementById('disponibles') as HTMLDivElement;
   const excluidos = document.getElementById('excluidos') as HTMLDivElement;
@@ -169,7 +178,7 @@ function configuracionDropZone(): void {
       e.preventDefault();
       if (!arrastrandoNombre) return; // SI no hay nada arrastrando salimos de la función
 
-      // Buscamos la tarjeta que se esta arrastrando 
+      // Buscamos la tarjeta que se esta arrastrando
       const card = document.querySelector(`.drag-item[data-nombre="${arrastrandoNombre}"]`);
       if (!card) return;
 
