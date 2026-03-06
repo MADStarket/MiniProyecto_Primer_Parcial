@@ -1,0 +1,70 @@
+.recuadro {
+  height: auto;
+}
+
+input {
+  border: 2px solid black;
+  outline: none;
+  transition: border-color 0.4s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: rgb(30, 136, 229);
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+
+button:hover {
+  background-color: #1283e6;
+}
+
+.celebracionBtn {
+  transition: border-color 0.25s, background-color 0.25s, transform 0.15s;
+}
+
+.celebracionBtn:hover {
+  border-color: #2563eb;
+}
+
+.celebracionBtn:active {
+  transform: scale(0.99);
+}
+
+
+.celebracionBtn,
+#tipodeCelebracion,
+#fechaCelebracion {
+  min-height: 44px;
+}
+
+/* Laptop pequeña */
+@media (max-width: 1024px) {
+  .celebracionBtn {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+}
+
+/* iPad mini */
+@media (max-width: 768px) {
+  .recuadro {
+    padding: 1rem;
+  }
+
+  .celebracionBtn {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+}
+
+/* iPhone 12 Pro (390px)*/
+@media (max-width: 430px) {
+  .celebracionBtn {
+    font-size: 0.85rem;
+    padding: 0.65rem;
+  }
+
+  #tipodeCelebracion,
+  #fechaCelebracion {
+    font-size: 0.95rem;
+  }
+}

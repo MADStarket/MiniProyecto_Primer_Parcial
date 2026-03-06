@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const manejarPasarExclusiones = () => {
-    window.location.href = window.location.origin + '/src/pages/#';
+    window.location.href = window.location.origin + '/src/pages/celebracion.html';
   };
 
   botonRegresar.addEventListener('click', manejarRegresar);
