@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const spanPresupuesto = document.getElementById('presupuesto') as HTMLSpanElement;
   const participantes = document.getElementById('participantes') as HTMLParagraphElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
+  const botonRealizarSorteo = document.getElementById("botonRealizarSorteo",) as HTMLButtonElement;
 
   // Cargamos el progress
   animarProgress(progress, 100);
@@ -39,5 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
     spanParticipantes.classList.add('font-normal');
 
   }
+
+  const manejarRealizarSorteo = (): void => {
+    window.location.href = window.location.origin + '/src/pages/resultados.html';
+  };
+
+  botonRealizarSorteo.addEventListener("click", manejarRealizarSorteo);
 
 });
