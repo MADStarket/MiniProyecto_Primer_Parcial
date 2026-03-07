@@ -30,3 +30,21 @@
   height: 100vh;
 
 }
+
+/*Especificamos los estilos para los navegadores que utilizan el motor WebKit (para poder modificar sus estilos)*/
+progress::-webkit-progress-bar {
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  /*Sobra adentro de la barra*/
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress::-webkit-progress-value {
+  /*Color de la barra*/
+  background-color: #4CAF50;
+  /*Borde de la barra*/
+  border-radius: 5px;
+  /*Animacion*/
+  transition: width 0.4s ease;
+
+}

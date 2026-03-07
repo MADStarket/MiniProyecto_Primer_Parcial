@@ -5,6 +5,7 @@ import '../components/footer';
 import { Participante } from '../model/Participante';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
+import { animarProgress } from '../utils/progressUtil';
 
 // Declaracion de variables globales
 let participanteSeleccionado = ''; // Guardaremos al participante que estamos editando sus exclusiones
@@ -194,12 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('SelectorParticipantes') as HTMLSelectElement;
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
 
   // Verificamos
-  if (!select || !botonRegresar || !botonPasarExclusiones) {
+  if (!select || !botonRegresar || !botonPasarExclusiones || !progress) {
     console.log('Elementos no encontrados');
     return;
   }
+
+  // Cargamos el progress
+  animarProgress(progress, 51);
 
   // Cargamos el selector
   cargarSelector();

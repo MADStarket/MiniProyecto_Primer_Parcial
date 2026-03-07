@@ -7,6 +7,7 @@ import { Participante } from '../model/Participante';
 import Swal from 'sweetalert2';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
+import { animarProgress } from '../utils/progressUtil';
 
 function agregarParticipante(participante: Participante, contenedorNombres: HTMLDivElement): void {
   // Creamos el div para la tarjeta
@@ -128,11 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
   const contenedorNombres = document.getElementById("contenedorNombres") as HTMLDivElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
 
-  if (!input || !botonAgregarParticipante || !botonRegresar || !botonPasarExclusiones || !contenedorNombres) {
+  if (!input || !botonAgregarParticipante || !botonRegresar || !botonPasarExclusiones || !contenedorNombres || !progress) {
     console.log('Elementos no encontrados');
     return;
   }
+
+  // Cargamos el progress
+  animarProgress(progress, 34);
 
   // Llamamos a nuestra funcion
   cargarParticipantes(contenedorNombres);

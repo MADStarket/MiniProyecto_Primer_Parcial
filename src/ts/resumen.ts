@@ -3,6 +3,7 @@ import '../components/header';
 import '../components/footer';
 // Importamos los utils
 import { obtenerSorteo } from '../utils/sorteoUtil';
+import { animarProgress } from '../utils/progressUtil';
 // Importamos las clases
 import { Participante } from '../model/Participante';
 
@@ -13,6 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const spanFechaCelebracion = document.getElementById('fechaCelebracion') as HTMLSpanElement;
   const spanPresupuesto = document.getElementById('presupuesto') as HTMLSpanElement;
   const participantes = document.getElementById('participantes') as HTMLParagraphElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
+
+  // Verificamos todos los elementos
+  if(!spanNombreCelebracion || !spanNombreOrganizador || !spanFechaCelebracion || !spanPresupuesto || !participantes || !progress) {
+    console.log('Elementos no encontrados');
+    return;
+  }
+
+  // Cargamos el progress
+  animarProgress(progress, 100);
 
   // Obtenemos los datos del sorteo
   const sorteo = obtenerSorteo();

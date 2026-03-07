@@ -13,10 +13,6 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
 }
 
-button:hover {
-  background-color: #1283e6;
-}
-
 .celebracionBtn {
   transition: border-color 0.25s, background-color 0.25s, transform 0.15s;
 }

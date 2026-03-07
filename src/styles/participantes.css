@@ -12,10 +12,6 @@ input:focus {
   border-color: rgb(30, 136, 229);
 }
 
-button:hover {
-  background-color: #1283e6;
-}
-
 /*Estilo para las tarjetas*/
 .tarjeta {
   display: flex;

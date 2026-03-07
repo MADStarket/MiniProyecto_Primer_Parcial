@@ -1,17 +1,12 @@
 // Importamos los componentes
 import '../components/header';
 import '../components/footer';
-
 // Importamos las clases
-
 import { Sorteo } from '../model/Sorteo';
-
 import Swal from 'sweetalert2';
-
 // Importamos los utils
-
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
-
+import { animarProgress } from '../utils/progressUtil';
 
 // Variable global para guardar el sorteo
 const sorteo: Sorteo = obtenerSorteo() || new Sorteo();
@@ -76,12 +71,22 @@ function validarDatos(): boolean {
 }
 document.addEventListener('DOMContentLoaded', () => {
 
-
+  // Cargamos los elementos
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
-  const botonPasaraPresupuesto = document.getElementById('botonPasaraPresupuesto') as HTMLButtonElement;
+  const botonPasarPresupuesto = document.getElementById('botonPasarPresupuesto') as HTMLButtonElement;
   const celebracionBtns = document.querySelectorAll('.celebracionBtn') as NodeListOf<HTMLButtonElement>;
   const tipodeCelebracionInput = document.getElementById('tipodeCelebracion') as HTMLInputElement;
   const fechaCelebracionInput = document.getElementById('fechaCelebracion') as HTMLInputElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
+
+  // Verificamos la existencia de los elementos
+  if (!botonRegresar || !botonPasarPresupuesto || !celebracionBtns || !tipodeCelebracionInput || !fechaCelebracionInput || !progress) {
+    console.log('No se encontraron los elementos');
+    return;
+  }
+
+  // Cargamos el progress
+  animarProgress(progress, 68);
 
   // Agregamos listeners a los botones de celebración
   celebracionBtns.forEach(btn => {
@@ -103,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = window.location.origin + '/src/pages/exclusiones.html';
   };
 
-  const manejarPasaraPresupuesto = () => {
+  const manejarPasarPresupuesto = () => {
     if (validarDatos()) {
       guardarSorteo(sorteo);
       window.location.href = window.location.origin + '/src/pages/cuanto-gastar.html';
@@ -111,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (botonRegresar) botonRegresar.addEventListener('click', manejarRegresar);
-  if (botonPasaraPresupuesto) botonPasaraPresupuesto.addEventListener('click', manejarPasaraPresupuesto);
+  if (botonPasarPresupuesto) botonPasarPresupuesto.addEventListener('click', manejarPasarPresupuesto);
 
 
 });

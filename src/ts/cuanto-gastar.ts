@@ -3,6 +3,7 @@ import '../components/header';
 import '../components/footer';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
+import { animarProgress } from '../utils/progressUtil';
 
 // Función para establecer el presupuesto seleccionado
 function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLButtonElement>, inputPresupuesto: HTMLInputElement, botonOtro: HTMLButtonElement): void {
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputPresupuesto = document.getElementById('presupuesto') as HTMLInputElement;
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarResumen = document.getElementById('botonPasarResumen') as HTMLButtonElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
   // Botones de precios (excluimos el botón 'Otro')
   const presupuestoBtns = document.querySelectorAll('[id^="presupuesto-"]') as NodeListOf<HTMLButtonElement>;
   const botonPresupuesto100 = document.getElementById('presupuesto-100') as HTMLButtonElement;
@@ -42,10 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonPresupuesto500 = document.getElementById('presupuesto-500') as HTMLButtonElement;
   const botonOtro = document.getElementById('presupuesto-otro') as HTMLButtonElement;
 
-  if (!inputPresupuesto || !botonRegresar || !botonPasarResumen || !botonPresupuesto100 || !botonPresupuesto200 || !botonPresupuesto300 || !botonPresupuesto400 || !botonPresupuesto500 || !botonOtro) {
+  if (!inputPresupuesto || !botonRegresar || !botonPasarResumen || !progress || !botonPresupuesto100 || !botonPresupuesto200 || !botonPresupuesto300 || !botonPresupuesto400 || !botonPresupuesto500 || !botonOtro || !presupuestoBtns) {
     console.log('Elementos no encontrados');
     return;
   }
+
+  // Cargamos el progress
+  animarProgress(progress, 85);
 
   if (inputPresupuesto) {
     // Le agregamos un listener para cuando haya una entrada

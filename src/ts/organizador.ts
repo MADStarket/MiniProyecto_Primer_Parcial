@@ -5,6 +5,7 @@ import '../components/footer';
 import Swal from 'sweetalert2';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
+import { animarProgress } from '../utils/progressUtil';
 
 // Funciones
 function cargarOrganizador(input: HTMLInputElement, checkbox: HTMLInputElement): void {
@@ -31,12 +32,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('nombreOrganizador') as HTMLInputElement;
   const boton = document.getElementById('botonPasarOrganizador') as HTMLButtonElement;
   const checkbox = document.getElementById('incluirOrganizador') as HTMLInputElement;
+  const progress = document.getElementById('progress') as HTMLProgressElement;
 
   // Verificamos que los elementos existan
-  if (!input || !boton || !checkbox) {
+  if (!input || !boton || !checkbox || !progress) {
     console.log('Elementos no encontrados');
     return;
   }
+
+  // Cargamos el progress
+  animarProgress(progress, 17);
 
   // Ejecutamos nuestra funcion
   cargarOrganizador(input, checkbox);
