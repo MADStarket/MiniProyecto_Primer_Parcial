@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const manejarRegresar = (): void => {
-    window.location.href = window.location.origin + '/src/pages/detalles.html';
+    window.location.href = window.location.origin + '/src/pages/celebracion.html';
   };
 
   botonRegresar.addEventListener('click', manejarRegresar);

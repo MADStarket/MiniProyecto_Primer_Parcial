@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Si hay los participantes adecuados
       if (sorteo.participantes.length >= minimoInvitados) {
-        // Agregamos al organizador como participante, si este participa
-        if (sorteo.organizadorParticipa) {
+        // Agregamos al organizador como participante, si este participa y si aun no esta en la lista
+        if (sorteo.organizadorParticipa && !sorteo.participantes.some(p => p.nombre === sorteo.organizador)) {
           sorteo.participantes.push(new Participante(sorteo.organizador));
         }
 
