@@ -1,10 +1,8 @@
 // Importamos los componentes
 import "../components/header";
 import "../components/footer";
-
 // Importamos libreria
 import Swal from "sweetalert2";
-
 // Importamos claes y utils
 import { Participante } from "../model/Participante";
 import { obtenerSorteo } from "../utils/sorteoUtil";
@@ -20,11 +18,9 @@ function barajear<T>(arr: T[]): T[] {
   return copia;
 }
 
-function estaExcluido(proveedor: Participante,posibleReceptor: string,): boolean {
-  return (
-    proveedor.participantesExcluidos?.some(
-      (p) => p.nombre === posibleReceptor,
-    ) ?? false
+function estaExcluido(proveedor: Participante, posibleReceptor: string,): boolean {
+  return proveedor.participantesExcluidos.some(
+    (p) => p.nombre === posibleReceptor,
   );
 }
 
@@ -84,38 +80,48 @@ function generarAsignaciones(participantes: Participante[],): Asignaciones | nul
   return null;
 }
 
-function dibujarResultados(contenedor: HTMLDivElement,asignaciones: Asignaciones,): void {
-    contenedor.innerHTML = "";
+function dibujarResultados(contenedor: HTMLDivElement, asignaciones: Asignaciones,): void {
+  contenedor.innerHTML = "";
 
-    asignaciones.forEach((receptor, proveedor) => {
-      const fila = document.createElement("div");
+  asignaciones.forEach((receptor, proveedor) => {
+    const fila = document.createElement("div");
 
-      fila.className =
-        "grid grid-cols-3 items-center bg-white border border-slate-200 rounded-xl p-3 text-center";
+    fila.className =
+      "grid grid-cols-3 items-center bg-white border border-slate-200 rounded-xl p-3 text-center";
 
-      fila.innerHTML = `
+    fila.innerHTML = `
       <p class="font-bold text-[#4f46e5]">${proveedor}</p>
       <p class="font-bold text-slate-400">→</p>
       <p class="font-bold text-[#ec4899]">${receptor}</p>
       `;
 
-      contenedor.appendChild(fila);
-    });
-  }
+    contenedor.appendChild(fila);
+  });
+}
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // Obtenemos los elementos del HTML
-  const contenedorResultados = document.getElementById('contenedorResultados') as HTMLDivElement;
-  const botonOtroIntercambio = document.getElementById('botonPasarInicio') as HTMLButtonElement;
+async function inicializarResultados(): Promise<void> {
+  // Obtenemos los elementos del HTML
+  const contenedorResultados = document.getElementById('contenedorResultados');
+  const botonOtroIntercambio = document.getElementById('botonPasarInicio');
 
-  // Validamos que los elementos existan
-  if (!contenedorResultados || !botonOtroIntercambio) {
+  // Validamos que los elementos existan y tengan el tipo esperado
+  if (!(contenedorResultados instanceof HTMLDivElement) || !(botonOtroIntercambio instanceof HTMLButtonElement)) {
     console.log('Elementos no encontrados');
     return;
   }
 
   // Obtenemos el sorteo guardado en localStorage
-  const sorteo = obtenerSorteo()!;
+  const sorteo = obtenerSorteo();
+
+  if (!sorteo) {
+    await Swal.fire({
+      icon: 'error',
+      title: 'No se encontró un sorteo',
+      text: 'Primero debes crear un sorteo para ver resultados.',
+    });
+    window.location.href = window.location.origin + '/';
+    return;
+  }
 
   const asignaciones = generarAsignaciones(sorteo.participantes);
 
@@ -136,4 +142,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.removeItem('sorteo');
     window.location.href = window.location.origin + '/';
   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  void inicializarResultados();
 });
