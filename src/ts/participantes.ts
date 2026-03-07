@@ -81,6 +81,12 @@ function cargarParticipantes(contenedorNombres: HTMLDivElement): void {
 
     // Iteramos
     sorteo.participantes.forEach((participante: Participante) => {
+
+      // Si ya estaba agregado el organizador a los participantes, lo ignoramos para no mostrarlo 2 veces
+      if (participante.nombre === sorteo.organizador) {
+        return;
+      }
+
       // Creamos el div para la tarjeta
       const divParticipante = document.createElement('div');
 
