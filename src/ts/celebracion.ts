@@ -4,7 +4,7 @@ import '../components/footer';
 
 // Importamos las clases
 
-import { Sorteo } from '../model/Sorteo'
+import { Sorteo } from '../model/Sorteo';
 
 import Swal from 'sweetalert2';
 
@@ -14,7 +14,7 @@ import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 
 
 // Variable global para guardar el sorteo
-let sorteo: Sorteo = obtenerSorteo() || new Sorteo();
+const sorteo: Sorteo = obtenerSorteo() || new Sorteo();
 
 // Funcion para seleccionar el tipo de celebracion
 function establecerTipoCelebracion(boton: HTMLButtonElement, tipodeCelebracionInput: HTMLInputElement, celebracionBtns: NodeListOf<HTMLButtonElement>): void {

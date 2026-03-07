@@ -1,7 +1,7 @@
 // Importamos los componentes
 import '../components/header';
 import '../components/footer';
-// Importamos las clases
+// Importamos la clase
 import { Participante } from '../model/Participante';
 // Importamos la libreria
 import Swal from 'sweetalert2';
