@@ -4,19 +4,45 @@ import '../components/footer';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 
+// Función para establecer el presupuesto seleccionado
+function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLButtonElement>, inputPresupuesto: HTMLInputElement, botonOtro: HTMLButtonElement): void {
+  // Removemos la clase activa de todos los botones
+  presupuestoBtns.forEach(btn => btn.classList.remove('border-blue-500', 'bg-blue-100'));
+  botonOtro.classList.remove('border-blue-500', 'bg-blue-100');
+
+  // Si el valor es 'Otro', habilitamos el input
+  if (valor === 'Otro') {
+    botonOtro.classList.add('border-blue-500', 'bg-blue-100');
+    inputPresupuesto.disabled = false;
+    inputPresupuesto.focus();
+  } else {
+    // Encontramos el botón que corresponde al valor y le agregamos las clases
+    presupuestoBtns.forEach(btn => {
+      if (btn.textContent?.trim() === valor) {
+        btn.classList.add('border-blue-500', 'bg-blue-100');
+      }
+    });
+
+    // Deshabilitamos el input
+    inputPresupuesto.disabled = true;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Obtenemos los elementos
   const inputPresupuesto = document.getElementById('presupuesto') as HTMLInputElement;
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarResumen = document.getElementById('botonPasarResumen') as HTMLButtonElement;
-  // Botones de precios
+  // Botones de precios (excluimos el botón 'Otro')
+  const presupuestoBtns = document.querySelectorAll('[id^="presupuesto-"]') as NodeListOf<HTMLButtonElement>;
   const botonPresupuesto100 = document.getElementById('presupuesto-100') as HTMLButtonElement;
   const botonPresupuesto200 = document.getElementById('presupuesto-200') as HTMLButtonElement;
   const botonPresupuesto300 = document.getElementById('presupuesto-300') as HTMLButtonElement;
   const botonPresupuesto400 = document.getElementById('presupuesto-400') as HTMLButtonElement;
   const botonPresupuesto500 = document.getElementById('presupuesto-500') as HTMLButtonElement;
+  const botonOtro = document.getElementById('presupuesto-otro') as HTMLButtonElement;
 
-  if (!inputPresupuesto || !botonRegresar || !botonPasarResumen || !botonPresupuesto100 || !botonPresupuesto200 || !botonPresupuesto300 || !botonPresupuesto400 || !botonPresupuesto500) {
+  if (!inputPresupuesto || !botonRegresar || !botonPasarResumen || !botonPresupuesto100 || !botonPresupuesto200 || !botonPresupuesto300 || !botonPresupuesto400 || !botonPresupuesto500 || !botonOtro) {
     console.log('Elementos no encontrados');
     return;
   }
@@ -67,21 +93,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   botonRegresar.addEventListener('click', manejarRegresar);
   botonPasarResumen.addEventListener('click', manejarPasarResumen);
-  // Para cada boton un listener para cambiar el input
+
+  // Para cada boton un listener para cambiar el input con selección visual
   botonPresupuesto100.addEventListener('click', () => {
-    inputPresupuesto.value = '$100';
+    establecerPresupuesto('$100', presupuestoBtns, inputPresupuesto, botonOtro);
   });
   botonPresupuesto200.addEventListener('click', () => {
-    inputPresupuesto.value = '$200';
+    establecerPresupuesto('$200', presupuestoBtns, inputPresupuesto, botonOtro);
   });
   botonPresupuesto300.addEventListener('click', () => {
-    inputPresupuesto.value = '$300';
+    establecerPresupuesto('$300', presupuestoBtns, inputPresupuesto, botonOtro);
   });
   botonPresupuesto400.addEventListener('click', () => {
-    inputPresupuesto.value = '$400';
+    establecerPresupuesto('$400', presupuestoBtns, inputPresupuesto, botonOtro);
   });
   botonPresupuesto500.addEventListener('click', () => {
-    inputPresupuesto.value = '$500';
+    establecerPresupuesto('$500', presupuestoBtns, inputPresupuesto, botonOtro);
+  });
+  botonOtro.addEventListener('click', () => {
+    establecerPresupuesto('Otro', presupuestoBtns, inputPresupuesto, botonOtro);
   });
 
 });

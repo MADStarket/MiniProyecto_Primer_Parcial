@@ -1,11 +1,35 @@
 input {
   border: 2px solid black;
   outline: none;
-  transition: border-color 0.4s;
+  transition: border-color 0.4s, box-shadow 0.3s;
 }
 
 input:focus {
   border-color: rgb(30, 136, 229);
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+
+button:hover {
+  background-color: #1283e6;
+}
+
+/* Estilos para botones de presupuesto */
+[id^="presupuesto-"] {
+  transition: border-color 0.25s, background-color 0.25s, transform 0.15s;
+}
+
+[id^="presupuesto-"]:hover {
+  border-color: #2563eb;
+}
+
+[id^="presupuesto-"]:active {
+  transform: scale(0.99);
+}
+
+/* Altura mínima para elementos interactivos */
+[id^="presupuesto-"],
+#presupuesto {
+  min-height: 44px;
 }
 
 /*Declaramos la animacion*/
