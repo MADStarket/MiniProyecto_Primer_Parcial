@@ -1,3 +1,21 @@
 button:hover {
   background-color: #1283e6;
 }
+
+/*Declaramos la animacion*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/*Le aplicamos la animacion al div principal*/
+main {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
