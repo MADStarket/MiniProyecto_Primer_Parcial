@@ -34,12 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkbox = document.getElementById('incluirOrganizador') as HTMLInputElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
 
-  // Verificamos que los elementos existan
-  if (!input || !boton || !checkbox || !progress) {
-    console.log('Elementos no encontrados');
-    return;
-  }
-
   // Cargamos el progress
   animarProgress(progress, 17);
 
@@ -47,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarOrganizador(input, checkbox);
 
   // Definimos la funcion que se ejecutara al momento de hacer click
-  const manejarClick = () => {
+  const manejarClick = (): void => {
 
     // Obtenemos el valor insertado del input
     const nombreOrganizador = input.value.trim();
@@ -61,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: "error",
         title: "Oops...",
         text: "El intercambio debe de tener un organizador",
-      });
+      }).catch(() => { });
     }
     else {
       // Obtenemos el sorteo
@@ -84,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Definimos la funcion para cuando se le de enter al input
-  const manejarEnter = (event: KeyboardEvent) => {
+  const manejarEnter = (event: KeyboardEvent): void => {
     // Si la tecla la que se presiono fue el enter
     if (event.key === 'Enter') {
       // Le quitamos el comportamiento default

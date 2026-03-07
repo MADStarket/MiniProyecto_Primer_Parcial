@@ -16,7 +16,9 @@ function establecerTipoCelebracion(boton: HTMLButtonElement, tipodeCelebracionIn
   const valor = boton.dataset.value;
 
   //Removemos la clase activa de todos los botones
-  celebracionBtns.forEach(btn => btn.classList.remove('border-blue-500', 'bg-blue-100'));
+  celebracionBtns.forEach(btn => {
+    btn.classList.remove('border-blue-500', 'bg-blue-100');
+  });
 
   // Agregamos la clase al boton seleccionado
   boton.classList.add('border-blue-500', 'bg-blue-100');
@@ -41,7 +43,7 @@ function validarDatos(): boolean {
       icon: 'warning',
       title: 'Celebracion requerida',
       text: 'Por favor seleccione o ingresa el tipo de celebracion',
-    });
+    }).catch(() => { });
     return false;
   }
 
@@ -50,7 +52,7 @@ function validarDatos(): boolean {
       icon: 'warning',
       title: 'Fecha requerida',
       text: 'Por favor seleccione la fecha de celebracion',
-    });
+    }).catch(() => { });
     return false;
   }
 
@@ -63,34 +65,30 @@ function validarDatos(): boolean {
       icon: 'warning',
       title: 'Fecha invalida',
       text: 'La fecha debe ser hoy o posterior',
-    });
+    }).catch(() => { });
     return false;
   }
 
   return true;
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // Cargamos los elementos
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarPresupuesto = document.getElementById('botonPasarPresupuesto') as HTMLButtonElement;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const celebracionBtns = document.querySelectorAll('.celebracionBtn') as NodeListOf<HTMLButtonElement>;
   const tipodeCelebracionInput = document.getElementById('tipodeCelebracion') as HTMLInputElement;
   const fechaCelebracionInput = document.getElementById('fechaCelebracion') as HTMLInputElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
-
-  // Verificamos la existencia de los elementos
-  if (!botonRegresar || !botonPasarPresupuesto || !celebracionBtns || !tipodeCelebracionInput || !fechaCelebracionInput || !progress) {
-    console.log('No se encontraron los elementos');
-    return;
-  }
 
   // Cargamos el progress
   animarProgress(progress, 68);
 
   // Agregamos listeners a los botones de celebración
   celebracionBtns.forEach(btn => {
-    btn.addEventListener('click', () => establecerTipoCelebracion(btn, tipodeCelebracionInput, celebracionBtns));
+    btn.addEventListener('click', () => { establecerTipoCelebracion(btn, tipodeCelebracionInput, celebracionBtns); });
   });
 
   // Agregamos listener para cambios en el input de texto
@@ -104,19 +102,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = e.target as HTMLInputElement;
     sorteo.fechaCelebracion = input.value;
   });
-  const manejarRegresar = () => {
+  const manejarRegresar = (): void => {
     window.location.href = window.location.origin + '/src/pages/exclusiones.html';
   };
 
-  const manejarPasarPresupuesto = () => {
+  const manejarPasarPresupuesto = (): void => {
     if (validarDatos()) {
       guardarSorteo(sorteo);
       window.location.href = window.location.origin + '/src/pages/cuanto-gastar.html';
     }
   };
 
-  if (botonRegresar) botonRegresar.addEventListener('click', manejarRegresar);
-  if (botonPasarPresupuesto) botonPasarPresupuesto.addEventListener('click', manejarPasarPresupuesto);
+  botonRegresar.addEventListener('click', manejarRegresar);
+  botonPasarPresupuesto.addEventListener('click', manejarPasarPresupuesto);
 
 
 });

@@ -78,47 +78,47 @@ function cargarParticipantes(contenedorNombres: HTMLDivElement): void {
     }
 
     // Cargamos los otros participantes si hay
-    if (sorteo.participantes !== null) {
-      // Iteramos
-      sorteo.participantes.forEach((participante: Participante) => {
-        // Creamos el div para la tarjeta
-        const divParticipante = document.createElement('div');
 
-        // Agregamos el participante
-        divParticipante.innerHTML = `
+    // Iteramos
+    sorteo.participantes.forEach((participante: Participante) => {
+      // Creamos el div para la tarjeta
+      const divParticipante = document.createElement('div');
+
+      // Agregamos el participante
+      divParticipante.innerHTML = `
         <p>${participante.nombre}</p>
         <a class="cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </a>
       `;
 
-        // Le agregamos la clase al tag
-        divParticipante.classList.add('tarjeta');
-        // Le agregamos su id
-        divParticipante.id = participante.nombre;
+      // Le agregamos la clase al tag
+      divParticipante.classList.add('tarjeta');
+      // Le agregamos su id
+      divParticipante.id = participante.nombre;
 
-        // Lo agregamos al div
-        contenedorNombres.appendChild(divParticipante);
+      // Lo agregamos al div
+      contenedorNombres.appendChild(divParticipante);
 
-        // Obtenemos la etiqueta <a>
-        const botonEliminar = divParticipante.querySelector('a');
-        // Si el boton no es null
-        if (botonEliminar !== null) {
-          // Le agregamos un listener para que cuando se le haga click, se quite
-          botonEliminar.addEventListener('click', () => {
-            divParticipante.remove();
-            // Obtenemos el arreglo de sorteo
-            const sorteo = obtenerSorteo();
-            // Removemos el participante del sorteo (usando filter)
-            if (sorteo) {
-              sorteo.participantes = sorteo.participantes.filter((p) => p.nombre !== participante.nombre);
-              // Lo guardamos de nuevo
-              guardarSorteo(sorteo);
-            }
-          });
-        }
-      });
-    }
+      // Obtenemos la etiqueta <a>
+      const botonEliminar = divParticipante.querySelector('a');
+      // Si el boton no es null
+      if (botonEliminar !== null) {
+        // Le agregamos un listener para que cuando se le haga click, se quite
+        botonEliminar.addEventListener('click', () => {
+          divParticipante.remove();
+          // Obtenemos el arreglo de sorteo
+          const sorteo = obtenerSorteo();
+          // Removemos el participante del sorteo (usando filter)
+          if (sorteo) {
+            sorteo.participantes = sorteo.participantes.filter((p) => p.nombre !== participante.nombre);
+            // Lo guardamos de nuevo
+            guardarSorteo(sorteo);
+          }
+        });
+      }
+    });
+
   }
 }
 
@@ -131,11 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const contenedorNombres = document.getElementById("contenedorNombres") as HTMLDivElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
 
-  if (!input || !botonAgregarParticipante || !botonRegresar || !botonPasarExclusiones || !contenedorNombres || !progress) {
-    console.log('Elementos no encontrados');
-    return;
-  }
-
   // Cargamos el progress
   animarProgress(progress, 34);
 
@@ -143,12 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarParticipantes(contenedorNombres);
 
   // ----- Definimos las funciones que se ejecutaran al momento de hacer click -----
-  const manejarBotonRegresar = () => {
+  const manejarBotonRegresar = (): void => {
     // Aqui redireccionamos a la pagina pasada
     window.location.href = window.location.origin + '/src/pages/organizador.html';
   };
 
-  const manejarAgregarParticipante = () => {
+  const manejarAgregarParticipante = (): void => {
     // Obtenemos el valor insertado del input
     const nombreParticipante = input.value.trim();
 
@@ -159,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon: "error",
         title: "Oops...",
         text: "Debes de ingresar un participante",
-      });
+      }).catch(() => { });
     }
     else {
 
@@ -175,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const manejarPasarExclusiones = () => {
+  const manejarPasarExclusiones = (): void => {
 
     // Verificamos que haya por lo menos 2 personas para el intercambio
     const sorteo = obtenerSorteo();
@@ -204,14 +199,14 @@ document.addEventListener('DOMContentLoaded', () => {
           icon: "error",
           title: "Oops...",
           text: "Debes de haber al menos 2 participantes",
-        });
+        }).catch(() => { });
       }
     }
 
   };
 
   // Definimos la funcion para cuando se le de enter al input
-  const manejarEnter = (event: KeyboardEvent) => {
+  const manejarEnter = (event: KeyboardEvent): void => {
     // Si la tecla la que se presiono fue el enter
     if (event.key === 'Enter') {
       // Le quitamos el comportamiento default

@@ -16,12 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const participantes = document.getElementById('participantes') as HTMLParagraphElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
 
-  // Verificamos todos los elementos
-  if(!spanNombreCelebracion || !spanNombreOrganizador || !spanFechaCelebracion || !spanPresupuesto || !participantes || !progress) {
-    console.log('Elementos no encontrados');
-    return;
-  }
-
   // Cargamos el progress
   animarProgress(progress, 100);
 
@@ -35,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     spanPresupuesto.textContent = `$${sorteo.presupuesto}`;
 
     // Escribimos la palabra y el numero de participantes
-    participantes.textContent = `Participantes (${sorteo.participantes.length}): `;
+    participantes.textContent = `Participantes (${sorteo.participantes.length.toString()}): `;
     // Creamos un span
     const spanParticipantes = document.createElement('span');
     // Mostramos los nombres de los participantes

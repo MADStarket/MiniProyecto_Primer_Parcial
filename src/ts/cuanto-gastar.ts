@@ -8,7 +8,7 @@ import { animarProgress } from '../utils/progressUtil';
 // Función para establecer el presupuesto seleccionado
 function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLButtonElement>, inputPresupuesto: HTMLInputElement, botonOtro: HTMLButtonElement): void {
   // Removemos la clase activa de todos los botones
-  presupuestoBtns.forEach(btn => btn.classList.remove('border-blue-500', 'bg-blue-100'));
+  presupuestoBtns.forEach(btn => { btn.classList.remove('border-blue-500', 'bg-blue-100'); });
   botonOtro.classList.remove('border-blue-500', 'bg-blue-100');
 
   // Si el valor es 'Otro', habilitamos el input
@@ -19,7 +19,7 @@ function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLBu
   } else {
     // Encontramos el botón que corresponde al valor y le agregamos las clases
     presupuestoBtns.forEach(btn => {
-      if (btn.textContent?.trim() === valor) {
+      if (btn.textContent.trim() === valor) {
         btn.classList.add('border-blue-500', 'bg-blue-100');
       }
     });
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonPasarResumen = document.getElementById('botonPasarResumen') as HTMLButtonElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
   // Botones de precios (excluimos el botón 'Otro')
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const presupuestoBtns = document.querySelectorAll('[id^="presupuesto-"]') as NodeListOf<HTMLButtonElement>;
   const botonPresupuesto100 = document.getElementById('presupuesto-100') as HTMLButtonElement;
   const botonPresupuesto200 = document.getElementById('presupuesto-200') as HTMLButtonElement;
@@ -44,37 +45,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonPresupuesto500 = document.getElementById('presupuesto-500') as HTMLButtonElement;
   const botonOtro = document.getElementById('presupuesto-otro') as HTMLButtonElement;
 
-  if (!inputPresupuesto || !botonRegresar || !botonPasarResumen || !progress || !botonPresupuesto100 || !botonPresupuesto200 || !botonPresupuesto300 || !botonPresupuesto400 || !botonPresupuesto500 || !botonOtro || !presupuestoBtns) {
-    console.log('Elementos no encontrados');
-    return;
-  }
-
   // Cargamos el progress
   animarProgress(progress, 85);
 
-  if (inputPresupuesto) {
-    // Le agregamos un listener para cuando haya una entrada
-    inputPresupuesto.addEventListener('input', () => {
-      // Obtenemos lo que tiene el input directamente
-      let value = inputPresupuesto.value;
-      // Le quitamos todo excepto los numeros
-      value = value.replace(/[^\d]/g, '');
-      // Le agregamos el simbolo $
-      inputPresupuesto.value = value ? `$${value}` : '';
-    });
+  // Le agregamos un listener para cuando haya una entrada
+  inputPresupuesto.addEventListener('input', () => {
+    // Obtenemos lo que tiene el input directamente
+    let value = inputPresupuesto.value;
+    // Le quitamos todo excepto los numeros
+    value = value.replace(/[^\d]/g, '');
+    // Le agregamos el simbolo $
+    inputPresupuesto.value = value ? `$${value}` : '';
+  });
 
-    // Le agregamos un listener cuando haya un enter
-    inputPresupuesto.addEventListener('keydown', (e: KeyboardEvent) => {
-      // Si la tecla que se presiono fue el enter
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        // Es como si hicieran click
-        botonPasarResumen.click();
-      }
-    });
-  }
+  // Le agregamos un listener cuando haya un enter
+  inputPresupuesto.addEventListener('keydown', (e: KeyboardEvent) => {
+    // Si la tecla que se presiono fue el enter
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // Es como si hicieran click
+      botonPasarResumen.click();
+    }
+  });
 
-  const manejarPasarResumen = () => {
+
+  const manejarPasarResumen = (): void => {
     // Obtenemos el valor que se ingreso y le quitamos el primer elemento (signo $)
     const presupuesto: string = inputPresupuesto.value.slice(1);
     console.log(presupuesto);
@@ -92,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = window.location.origin + '/src/pages/resumen.html';
   };
 
-  const manejarRegresar = () => {
+  const manejarRegresar = (): void => {
     window.location.href = window.location.origin + '/src/pages/detalles.html';
   };
 

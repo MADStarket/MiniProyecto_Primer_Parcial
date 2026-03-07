@@ -49,8 +49,6 @@ function obtenerParticipante(): Participante | null {
 function cargarSelector(): void {
   const select = document.getElementById('SelectorParticipantes') as HTMLSelectElement;
 
-  if (!select) return;
-
   // Obtenemos la lista única de nombres (sin duplicados)
   const nombres: string[] = obtenerNombresUnicos();
 
@@ -67,8 +65,6 @@ function cargarSelector(): void {
 function cargarLista(): void {
   const disponibles = document.getElementById('disponibles') as HTMLDivElement;
   const excluidos = document.getElementById('excluidos') as HTMLDivElement;
-
-  if (!disponibles || !excluidos) return;
 
   // Limpiamos listas
   disponibles.innerHTML = '';
@@ -123,7 +119,6 @@ function cargarLista(): void {
 // Cargamos la información al localstorage
 function guardarExclusionesDesdeUI(): void {
   const excluidos = document.getElementById('excluidos') as HTMLDivElement;
-  if (!excluidos || !participanteSeleccionado) return;
 
   const sorteo = obtenerSorteo();
   if (!sorteo) return;
@@ -161,7 +156,6 @@ function guardarExclusionesDesdeUI(): void {
 function configuracionDropZone(): void {
   const disponibles = document.getElementById('disponibles') as HTMLDivElement;
   const excluidos = document.getElementById('excluidos') as HTMLDivElement;
-  if (!disponibles || !excluidos) return;
 
   // Tanto drag como drop los configuramos con los mismos eventos
   [disponibles, excluidos].forEach((zona) => {
@@ -197,12 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
 
-  // Verificamos
-  if (!select || !botonRegresar || !botonPasarExclusiones || !progress) {
-    console.log('Elementos no encontrados');
-    return;
-  }
-
   // Cargamos el progress
   animarProgress(progress, 51);
 
@@ -213,17 +201,17 @@ document.addEventListener('DOMContentLoaded', () => {
   configuracionDropZone();
 
   // Escuchamos los cambios en el selector
-  select.addEventListener('change', () => {
+  select.addEventListener('change', (): void => {
     participanteSeleccionado = select.value; // Guardamos al participante seleccionado
     cargarLista(); // Dibujamos las listas
   });
 
 
-  const manejarRegresar = () => {
+  const manejarRegresar = (): void => {
     window.location.href = window.location.origin + '/src/pages/participantes.html';
   };
 
-  const manejarPasarExclusiones = () => {
+  const manejarPasarExclusiones = (): void => {
     window.location.href = window.location.origin + '/src/pages/celebracion.html';
   };
 
