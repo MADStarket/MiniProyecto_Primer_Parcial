@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const participantes = document.getElementById('participantes') as HTMLParagraphElement;
   const progress = document.getElementById('progress') as HTMLProgressElement;
   const botonRealizarSorteo = document.getElementById("botonRealizarSorteo",) as HTMLButtonElement;
+  const botonEmpezarDeNuevo = document.getElementById('empezarDeNuevo') as HTMLAnchorElement;
 
   // Cargamos el progress
   animarProgress(progress, 100);
@@ -47,5 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   botonRealizarSorteo.addEventListener("click", manejarRealizarSorteo);
+  // Listener al <a> para regresar a index
+  botonEmpezarDeNuevo.addEventListener('click', (): void => {
+    navigateTo('index.html');
+  });
 
 });

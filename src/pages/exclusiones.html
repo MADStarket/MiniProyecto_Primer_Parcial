@@ -27,28 +27,30 @@
         <div id="preguntaInicial" class="flex flex-col gap-4 justify-center items-center py-8">
           <div class="flex flex-col gap-2 text-center">
             <p class="text-lg md:text-2xl font-black">¿Desea configurar exclusiones?</p>
-            <p class="text-sm md:text-lg font-medium text-slate-700">Las exclusiones permiten indicar quién no puede regalarle a quién</p>
+            <p class="text-sm md:text-lg font-medium text-slate-700">Las exclusiones permiten indicar quién no puede
+              regalarle a quién</p>
           </div>
 
           <div class="flex flex-col md:flex-row gap-3 w-full mt-4">
             <button type="button" id="botonSiExclusiones"
-              class="flex-1 gap-2 flex items-center justify-center text-white p-3 rounded-2xl font-black bg-blue-600 cursor-pointer hover:bg-blue-700 transition-colors">
+              class="flex-1 gap-2 flex items-center justify-center text-white p-3 rounded-2xl font-black bg-blue-600 cursor-pointer transition-colors">
               Sí, configurar exclusiones
             </button>
 
             <button type="button" id="botonNoExclusiones"
-              class="flex-1 gap-2 flex items-center justify-center text-white p-3 rounded-2xl font-black bg-green-600 cursor-pointer hover:bg-green-700 transition-colors">
+              class="flex-1 gap-2 flex items-center justify-center text-white p-3 rounded-2xl font-black bg-green-600 cursor-pointer transition-colors">
               No, continuar sin exclusiones
             </button>
           </div>
 
           <button type="button" id="botonRegresarInicial"
-            class="mt-4 flex items-center gap-2 text-slate-600 font-medium hover:text-slate-800 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m15 18-6-6 6-6" />
+            class="flex items-center gap-3 justify-center text-white p-2 rounded-2xl font-black bg-gray-600 cursor-pointer">Regresar
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-move-right-icon lucide-move-right">
+              <path d="M18 8L22 12L18 16" />
+              <path d="M2 12H22" />
             </svg>
-            Regresar
           </button>
         </div>
 
@@ -63,7 +65,7 @@
 
           <div class="flex flex-col gap-2 justify-center items-center pb-3 text-center">
 
-              <select id="SelectorParticipantes"
+            <select id="SelectorParticipantes"
               class="w-full h-10 px-4 text-xs md:text-sm border border-slate-200 rounded focus:border-blue-600">
               <option value="">-- Selecciona un participante --</option>
             </select>
