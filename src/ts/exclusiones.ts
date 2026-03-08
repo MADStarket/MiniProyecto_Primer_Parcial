@@ -6,6 +6,7 @@ import { Participante } from '../model/Participante';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 // Declaracion de variables globales
 let participanteSeleccionado = ''; // Guardaremos al participante que estamos editando sus exclusiones
@@ -208,11 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const manejarRegresar = (): void => {
-    window.location.href = window.location.origin + '/src/pages/participantes.html';
+    navigateTo('src/pages/participantes.html');
   };
 
   const manejarPasarExclusiones = (): void => {
-    window.location.href = window.location.origin + '/src/pages/celebracion.html';
+    navigateTo('src/pages/celebracion.html');
   };
 
   botonRegresar.addEventListener('click', manejarRegresar);

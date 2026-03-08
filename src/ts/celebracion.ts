@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 // Variable global para guardar el sorteo
 const sorteo: Sorteo = obtenerSorteo() || new Sorteo();
@@ -103,13 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
     sorteo.fechaCelebracion = input.value;
   });
   const manejarRegresar = (): void => {
-    window.location.href = window.location.origin + '/src/pages/exclusiones.html';
+    navigateTo('src/pages/exclusiones.html');
   };
 
   const manejarPasarPresupuesto = (): void => {
     if (validarDatos()) {
       guardarSorteo(sorteo);
-      window.location.href = window.location.origin + '/src/pages/cuanto-gastar.html';
+      navigateTo('src/pages/cuanto-gastar.html');
     }
   };
 

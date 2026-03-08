@@ -4,6 +4,7 @@ import '../components/footer';
 // Importamos los utils
 import { obtenerSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 // Importamos las clases
 import { Participante } from '../model/Participante';
 
@@ -42,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const manejarRealizarSorteo = (): void => {
-    window.location.href = window.location.origin + '/src/pages/resultados.html';
+    navigateTo('src/pages/resultados.html');
   };
 
   botonRealizarSorteo.addEventListener("click", manejarRealizarSorteo);

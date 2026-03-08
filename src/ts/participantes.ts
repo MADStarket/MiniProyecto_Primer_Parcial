@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 function agregarParticipante(participante: Participante, contenedorNombres: HTMLDivElement): void {
   // Creamos el div para la tarjeta
@@ -146,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----- Definimos las funciones que se ejecutaran al momento de hacer click -----
   const manejarBotonRegresar = (): void => {
     // Aqui redireccionamos a la pagina pasada
-    window.location.href = window.location.origin + '/src/pages/organizador.html';
+    navigateTo('src/pages/organizador.html');
   };
 
   const manejarAgregarParticipante = (): void => {
@@ -197,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         guardarSorteo(sorteo);
 
         // Redireccionamos a la siguiente pagina
-        window.location.href = window.location.origin + '/src/pages/exclusiones.html';
+        navigateTo('src/pages/exclusiones.html');
       }
       else {
         // Mandamos mensaje de error

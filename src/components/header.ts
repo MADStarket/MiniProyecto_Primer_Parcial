@@ -1,9 +1,10 @@
+import { navigateTo } from '../utils/navigationUtil';
+import '../styles/shared/header.css';
+
 class Header extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = `
-      <link rel="stylesheet" href="/src/styles/shared/header.css">
-
       <!--Lo programamos primero para el iPhone 12 Pro-->
       <!--md es para pantallas mayores o iguales a 768px (Esto para el iPad Mini y escritorio)-->
       <nav class="flex text-sm justify-between p-4 gap-5 md:justify-between md:text-3xl">
@@ -24,7 +25,8 @@ class Header extends HTMLElement {
 
     // Evento de click en el logo
     this.querySelector('#logo')?.addEventListener('click', () => {
-      window.location.href = window.location.origin + '/index.html';
+      // Utilizamos nuestro util
+      navigateTo('index.html');
     });
   }
 }

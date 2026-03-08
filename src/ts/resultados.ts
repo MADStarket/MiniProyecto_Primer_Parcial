@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 // Importamos claes y utils
 import { Participante } from "../model/Participante";
 import { obtenerSorteo } from "../utils/sorteoUtil";
+import { navigateTo } from "../utils/navigationUtil";
 
 type Asignaciones = Map<string, string>;
 
@@ -119,7 +120,7 @@ async function inicializarResultados(): Promise<void> {
       title: 'No se encontró un sorteo',
       text: 'Primero debes crear un sorteo para ver resultados.',
     });
-    window.location.href = window.location.origin + '/';
+    navigateTo('index.html');
     return;
   }
 
@@ -132,7 +133,7 @@ async function inicializarResultados(): Promise<void> {
       title: 'No se pudo generar el sorteo',
       text: 'Las exclusiones actuales no permiten una combinación válida.',
     });
-    window.location.href = window.location.origin + '/src/pages/exclusiones.html';
+    navigateTo('src/pages/exclusiones.html');
     return;
   }
 
@@ -140,7 +141,7 @@ async function inicializarResultados(): Promise<void> {
 
   botonOtroIntercambio.addEventListener('click', () => {
     localStorage.removeItem('sorteo');
-    window.location.href = window.location.origin + '/';
+    navigateTo('index.html');
   });
 }
 

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 // Funciones
 function cargarOrganizador(input: HTMLInputElement, checkbox: HTMLInputElement): void {
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Redireccionamos a la siguiente pagina
-      window.location.href = window.location.origin + '/src/pages/participantes.html';
+      navigateTo('src/pages/participantes.html');
     }
   };
 

@@ -1,0 +1,58 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main] # Se activa cuando se hace push a la rama main
+  workflow_dispatch: # Permite ejecutar manualmente desde GitHub
+
+permissions:
+  contents: read # Puede leer el codigo del repositorio
+  pages: write # Puede escribir en GitHub Pages
+  id-token: write # Para autenticacion segura
+
+concurrency:
+  group: "pages" # Solo un deploy a la vez
+  cancel-in-progress: false # No cancela deploys en curso
+
+# Trabajo que construye el proyecto
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Pasos a realizar
+    steps:
+      - name: Descargar codigo # Descarga el codigo del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.Js # Instala Node 20.x y configura el cache de npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "npm"
+
+      - name: Instalando dependencias # Instala lo que dice exactamente el package-lock.json
+        run: npm ci
+
+      - name: Construyendo proyecto
+        run: npm run build
+
+      - name: Configurando Pages # Configura GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Subiendo artifact # Sube la carpeta dist/ como artefacto para el siguiente Job
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+  # Trabajo que publica en Github Pages
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build # Esto solo se ejecuta si build tuvo exito
+
+    steps:
+      - name: Subiendo a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

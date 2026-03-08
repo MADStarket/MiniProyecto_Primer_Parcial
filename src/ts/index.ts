@@ -5,6 +5,7 @@ import '../components/footer';
 import { Sorteo } from '../model/Sorteo';
 // Importamos el util
 import { guardarSorteo } from '../utils/sorteoUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 document.querySelector('#botonComenzar')?.addEventListener('click', () => {
   // Dado que se inicio el sorteo, creamos el objeto para este mismo
@@ -12,5 +13,5 @@ document.querySelector('#botonComenzar')?.addEventListener('click', () => {
   // Lo guardamos usando nuestra funcion
   guardarSorteo(sorteo);
 
-  window.location.href = window.location.origin + '/src/pages/organizador.html';
+  navigateTo('src/pages/organizador.html');
 });

@@ -8,12 +8,17 @@
     "eslint-fix": "eslint src/ --fix",
     "dev": "vite",
     "build": "tsc && vite build",
+    "minify:html": "html-minifier-terser --input-dir dist --output-dir dist --file-ext html --collapse-whitespace --remove-comments --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace",
+    "postbuild": "npm run minify:html",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/node": "^25.3.5",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.46.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1"

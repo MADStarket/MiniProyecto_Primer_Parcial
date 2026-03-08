@@ -4,6 +4,7 @@ import '../components/footer';
 // Importamos los utils
 import { obtenerSorteo, guardarSorteo } from '../utils/sorteoUtil';
 import { animarProgress } from '../utils/progressUtil';
+import { navigateTo } from '../utils/navigationUtil';
 
 // Función para establecer el presupuesto seleccionado
 function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLButtonElement>, inputPresupuesto: HTMLInputElement, botonOtro: HTMLButtonElement): void {
@@ -84,11 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
       guardarSorteo(sorteo);
     }
 
-    window.location.href = window.location.origin + '/src/pages/resumen.html';
+    navigateTo('src/pages/resumen.html');
   };
 
   const manejarRegresar = (): void => {
-    window.location.href = window.location.origin + '/src/pages/celebracion.html';
+    navigateTo('src/pages/celebracion.html');
   };
 
   botonRegresar.addEventListener('click', manejarRegresar);
