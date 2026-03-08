@@ -186,7 +186,12 @@ function configuracionDropZone(): void {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Obtenemos los elemenetos
+  // Obtenemos los elementos
+  const preguntaInicial = document.getElementById('preguntaInicial') as HTMLDivElement;
+  const configuracionExclusiones = document.getElementById('configuracionExclusiones') as HTMLDivElement;
+  const botonSiExclusiones = document.getElementById('botonSiExclusiones') as HTMLButtonElement;
+  const botonNoExclusiones = document.getElementById('botonNoExclusiones') as HTMLButtonElement;
+  const botonRegresarInicial = document.getElementById('botonRegresarInicial') as HTMLButtonElement;
   const select = document.getElementById('SelectorParticipantes') as HTMLSelectElement;
   const botonRegresar = document.getElementById('botonRegresar') as HTMLButtonElement;
   const botonPasarExclusiones = document.getElementById('botonPasarExclusiones') as HTMLButtonElement;
@@ -195,11 +200,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cargamos el progress
   animarProgress(progress, 51);
 
-  // Cargamos el selector
-  cargarSelector();
+  // Función para mostrar la configuración de exclusiones
+  const mostrarConfiguracion = (): void => {
+    preguntaInicial.classList.add('hidden');
+    configuracionExclusiones.classList.remove('hidden');
 
-  // Configuramos las zonas para el drag&drop
-  configuracionDropZone();
+    // Cargamos el selector
+    cargarSelector();
+
+    // Configuramos las zonas para el drag&drop
+    configuracionDropZone();
+  };
+
+  // Función para continuar sin exclusiones
+  const continuarSinExclusiones = (): void => {
+    navigateTo('src/pages/celebracion.html');
+  };
+
+  // Función para regresar desde la pregunta inicial
+  const regresarDesdeInicial = (): void => {
+    navigateTo('src/pages/participantes.html');
+  };
+
+  // Event listeners para la pregunta inicial
+  botonSiExclusiones.addEventListener('click', mostrarConfiguracion);
+  botonNoExclusiones.addEventListener('click', continuarSinExclusiones);
+  botonRegresarInicial.addEventListener('click', regresarDesdeInicial);
 
   // Escuchamos los cambios en el selector
   select.addEventListener('change', (): void => {
