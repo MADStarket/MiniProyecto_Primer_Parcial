@@ -25,6 +25,17 @@ function establecerPresupuesto(valor: string, presupuestoBtns: NodeListOf<HTMLBu
       }
     });
 
+    // Obtenemos el sorteo
+    const sorteo = obtenerSorteo();
+    // Le quitamos el signo $ a la cadena
+    const presupuesto = valor.slice(1);
+    // Le asignamos el presupuesto
+    if (sorteo) {
+      sorteo.presupuesto = presupuesto;
+    }
+    // Guardamos el sorteo
+    guardarSorteo(sorteo);
+
     // Deshabilitamos el input
     inputPresupuesto.disabled = true;
   }
@@ -71,18 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const manejarPasarResumen = (): void => {
-    // Obtenemos el valor que se ingreso y le quitamos el primer elemento (signo $)
-    const presupuesto: string = inputPresupuesto.value.slice(1);
-    console.log(presupuesto);
 
-    // Obtenemos el sorteo
-    const sorteo = obtenerSorteo();
+    // Si el input esta habilitado, entonces se selecciono "Otro" y debemos guardar lo que está en el input
+    if (!inputPresupuesto.disabled) {
+      // Obtenemos el valor que se ingreso y le quitamos el primer elemento (signo $)
+      const presupuesto: string = inputPresupuesto.value.slice(1);
 
-    // Le asignamos el presupuesto obtenido
-    if (sorteo !== null) {
-      sorteo.presupuesto = presupuesto;
-      // Lo guardamos nuevamente
-      guardarSorteo(sorteo);
+      // Obtenemos el sorteo
+      const sorteo = obtenerSorteo();
+
+      // Le asignamos el presupuesto obtenido
+      if (sorteo !== null) {
+        sorteo.presupuesto = presupuesto;
+        // Lo guardamos nuevamente
+        guardarSorteo(sorteo);
+      }
     }
 
     navigateTo('src/pages/resumen.html');
